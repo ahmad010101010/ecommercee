@@ -1,8 +1,26 @@
+@extends('layouts.front')
+
+@section('title')
+{{$category->meta_title}}
+@endsection
+
+@section('meta_keyword')
+{{$category->meta_keyword}}
+@endsection
+
+@section('meta_description')
+{{$category->meta_description}}
+@endsection
+
+
+@section('content')
+
+
 <section class="product_section layout_padding">
     <div class="container">
        <div class="heading_container heading_center">
           <h2>
-             Trinding <span>products</span>
+            <span>products</span>
           </h2>
        </div>
        <div class="row">
@@ -38,9 +56,13 @@
          </div>
 
         @empty
-            <h4>No product for now</h4>
+            <h4>No product for {{$category->name}}</h4>
         @endforelse
 
 
     </div>
  </section>
+
+
+
+@endsection

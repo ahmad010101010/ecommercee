@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Brand;
+use App\Models\product;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\prodect;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -25,7 +26,7 @@ class Category extends Model
     ];
 
     public function prodects(){
-        return $this->hasMany(prodect::class,'category_id','id');
+        return $this->hasMany(product::class,'category_id','id');
     }
 
     public function brand(){

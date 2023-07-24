@@ -58,7 +58,9 @@
             </table>
         </div>
     </div>
-
+    <center class="mt-5">
+        {{ $brands->links() }}
+    </center>
     </div>
 </div>
 @endsection

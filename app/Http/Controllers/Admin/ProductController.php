@@ -23,7 +23,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $products = product::all();
+        $products = product::paginate(10);
         $categories = Category::all();
         return view('admin.product.index', compact('categories', 'products'));
     }
@@ -60,23 +60,7 @@ class productController extends Controller
 
         ]);
 
-        //   $product =  product::create([
-        //         'name'=>$request->name,
-        //         'slug'=>$request->slug,
-        //         'original_price'=>$request->original_price,
-        //         'selling_price'=>$request->selling_price,
-        //         'description'=>$request->description,
-        //         'status'=>$request->status == true ? '1':'0',
-        //         'quntity'=>$request->quntity,
-        //         'meta_description'=>$request->meta_description,
-        //         'meta_keyword'=>$request->meta_keyword,
-        //         'meta_title'=>$request->meta_title,
 
-        //     ]);
-
-        //     if($request->has('categories')){
-        //         $product->categories()->attach($request->categories);
-        //     }
 
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $image) {
@@ -88,6 +72,7 @@ class productController extends Controller
                 ]);
             };
         };
+
         return to_route('product.index')->with('message', 'Product Added sucssfully');
     }
 
@@ -107,6 +92,7 @@ class productController extends Controller
     public function edit(product $product)
     {
         $categories = Category::all();
+
         return view('admin.product.edit', compact('categories', 'product'));
     }
 
@@ -115,24 +101,7 @@ class productController extends Controller
      */
     public function update(productStoreRequest $request, product $product)
     {
-        // $validatedData = $request->validated();
-        // $product = Category::findOrfail($validatedData['category_id'])
-        // ->products()->where('id',$products_id)->first();
-        // if($product){
-        //     $product->update([
-        //         'category_id'=>$validatedData['category_id'],
-        //         'name'=>$validatedData['name'],
-        //         'slug'=>Str::slug($validatedData['slug']),
-        //         'original_price'=>$validatedData['original_price'],
-        //         'selling_price'=>$validatedData['selling_price'],
-        //         'description'=>$validatedData['description'],
-        //         'status'=>$request->status == true ? '1':'0',
-        //         'quntity'=>$validatedData['quntity'],
-        //         'meta_description'=>$validatedData['meta_description'],
-        //         'meta_keyword'=>$validatedData['meta_keyword'],
-        //         'meta_title'=>$validatedData['meta_title'],
-        //             ]);
-
+            //dd($request);
         $product->update([
 
             'category_id' => $request->category_id,
@@ -163,10 +132,11 @@ class productController extends Controller
                 ]);
             };
         };
+
         return to_route('product.index')->with('message', 'Product updated sucssfully');
     }
 
-    //gf
+    //this for deleting image frome edit bage
     public function deleteOneImage(int $id)
     {
 
@@ -194,15 +164,15 @@ class productController extends Controller
     }
 
 
+//ajax method fltering seclect barand based on category
+
+    public function getPrands(Request $request)
+    {
+        $category_id = $request->input('category_id');
+
+        $brands = brand::where('category_id', $category_id)->get();
 
 
- public function getPrands(productStoreRequest $request)
-{
-    $category_id = $request->input('category_id');
-
-    $brands = brand::where('category_id', $category_id)->get();
-
-
-    return response()->json($brands);
-}
+        return response()->json($brands);
+    }
 }

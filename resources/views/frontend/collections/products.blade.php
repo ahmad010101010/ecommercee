@@ -1,8 +1,15 @@
+@extends('layouts.front')
+
+@section('title','All Product')
+
+@section('content')
+
+
 <section class="product_section layout_padding">
     <div class="container">
        <div class="heading_container heading_center">
           <h2>
-             Trinding <span>products</span>
+             All <span>products</span>
           </h2>
        </div>
        <div class="row">
@@ -44,3 +51,7 @@
 
     </div>
  </section>
+
+
+
+@endsection

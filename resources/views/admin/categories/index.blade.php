@@ -59,7 +59,9 @@
             </table>
         </div>
     </div>
-
+    <center class="mt-5">
+        {{ $categories->links() }}
+    </center>
     </div>
 </div>
 @endsection

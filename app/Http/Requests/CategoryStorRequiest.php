@@ -28,7 +28,8 @@ class CategoryStorRequiest extends FormRequest
             ],
             'slug'=> [
                 'required',
-                'string'
+                'string',
+                'unique:categories'
             ],
             'description'=> [
                 'required'

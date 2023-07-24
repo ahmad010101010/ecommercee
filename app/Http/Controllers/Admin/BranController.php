@@ -16,7 +16,7 @@ class BranController extends Controller
      */
     public function index()
     {
-        $brands = Brand::all();
+        $brands = Brand::paginate(10);
         $categories = Category::where('status','=','0')->get();
         return view('admin.brand.index',compact('brands','categories'));
     }

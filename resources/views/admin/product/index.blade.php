@@ -31,6 +31,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>Brand</th>
                                 <th>Status</th>
                                 <th>Pupular</th>
                                 <th>original price</th>
@@ -45,6 +46,7 @@
                                     <td>{{ $product->id }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->categories->name }}</td>
+                                    <td>{{ $product->brand->name }}</td>
                                     <td>{{ $product->status == '1' ? 'Hidden' : 'visible' }}</td>
                                     <td>{{ $product->popular == '1' ? 'Not Popular' : 'popular' }}</td>
                                     <td>{{ $product->original_price }}</td>
@@ -57,7 +59,7 @@
                                         <div class="btn-group">
                                             <a href="{{ route('product.edit', $product->id) }}"
                                                 class="btn btn-success mx-1 rounded-1">Edit</a>
-                                                
+
                                             <a href="{{ route('product.show', $product->id) }}"
                                                 class="btn btn-success mx-1 rounded-1">Show product</a>
                                             <form method="POST"
@@ -76,7 +78,9 @@
                     </table>
                 </div>
             </div>
-
+            <center class="mt-5">
+                {{ $products->links() }}
+            </center>
         </div>
     </div>
 @endsection
