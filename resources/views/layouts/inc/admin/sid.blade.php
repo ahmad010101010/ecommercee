@@ -66,15 +66,6 @@
                 <span class="menu-title">Categories</span>
             </a>
         </li>
-
-        <li class="nav-item menu-items">product
-            <a class="nav-link" href="{{ route('product.index')}}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-playlist-play"></i>
-                </span>
-                <span class="menu-title">Product</span>
-            </a>
-        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('brands.index')}}">
                 <span class="menu-icon">
@@ -83,12 +74,21 @@
                 <span class="menu-title">Brans</span>
             </a>
         </li>
+        <li class="nav-item menu-items">product
+            <a class="nav-link" href="{{ route('product.index')}}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-playlist-play"></i>
+                </span>
+                <span class="menu-title">Product</span>
+            </a>
+        </li>
+
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="{{route('Orders')}}">
                 <span class="menu-icon">
                     <i class="mdi mdi-chart-bar"></i>
                 </span>
-                <span class="menu-title">Charts</span>
+                <span class="menu-title">Orders</span>
             </a>
         </li>
         <li class="nav-item menu-items">

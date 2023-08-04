@@ -25,7 +25,7 @@ return new class extends Migration
             $table ->integer('quntity');
             $table->longText('meta_description');
             $table->string('meta_keyword');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

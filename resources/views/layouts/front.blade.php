@@ -7,7 +7,7 @@
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <!-- Site Metas -->
-
+        <meta name="csrf-token" content="{{csrf_token()}}">
         <meta name="keywords" content="@yield('meta_keyword')" />
         <meta name="description" content="@yield('meta_description')" />
         <meta name="author" content="ALyousif Ecommerce" />

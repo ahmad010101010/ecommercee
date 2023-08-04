@@ -32,6 +32,7 @@ class ProductStoreRequest extends FormRequest
             'slug'=>[
                 'required',
                 'string',
+                'unique:products'
             ],
             'description'=>[
                 'required',

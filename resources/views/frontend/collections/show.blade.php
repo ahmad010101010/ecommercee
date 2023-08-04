@@ -13,8 +13,10 @@
 @endsection
 
 @section('content')
+
+
     <div class="card">
-        <div class="card-header">
+        <div class="card-header product_data">
             <div class="header_main">
                 <div class="container">
                     <div class="row">
@@ -96,16 +98,21 @@
                                 <hr class="singleline">
                                 Description:
                                 <div> <span class="product_info"> {{ $product->description }}<span><br> </div>
+                                    <input type="hidden" value="{{$product->id}}" class="prod_id">
                                 <div>
                                     <hr class="singleline">
-                                    Quntity:
-                                    <div> <span class="product_info"> {{ $product->quntity }}<span><br> </div>
-                                    <div>
+                                    <label for="Quntity">Quntity</label>
+                                        <div class="input-group text-center mb-3" style="width:130px">
+                                            <button class="input-group-text decrement-btn">-</button>
+                                                <input type="text " name="quntity" class="form-control qty-input text-center" value="1">
+                                            <button class="input-group-text increment-btn">+</button>
+                                        </div>
+                                </div>
+
                                         <hr class="singleline">
                                         <div class=" btn btn-groub">
 
-                                            <a href="#" class="btn btn-success">Add To Cart</a>
-                                            <a href="#" class="btn btn-info">Cash On Delivery</a>
+                                            <button type="button" class=" btn-success addToCart ">Add To Cart</a>
 
 
                                         </div>
@@ -120,4 +127,65 @@
                     </div>
                 </div>
             </div>
-        @endsection
+            @endsection
+
+
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script>
+
+            $(document).ready(function(){
+                $('.addToCart').click(function(e){
+                    e.preventDefault();
+                    var product_id =$(this).closest('.product_data').find('.prod_id').val();
+                    var product_qty =$(this).closest('.product_data').find('.qty-input').val();
+
+                    $.ajaxSetup({
+                    headers : {
+                        'X-CSRF-TOKEN' : $('.meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                    $.ajax({
+                        metode:"POST",
+                        url: '{{ route('addToCart') }}',
+                        data:{
+                            'product_id':product_id,
+                            'product_qty':product_qty,
+                        },
+                        success:function(response){
+                            alert(response.status);
+                        }
+                    })
+
+
+                });
+            });
+
+            $(document).ready(function(){
+                $('.increment-btn').click(function(e){
+                    e.preventDefault();
+
+                    var inc_value = $(this).closest('.product_data').find('.qty-input').val();
+                    var value = parseInt(inc_value, 10);
+                    value = isNaN(value) ? 0 : value;
+                    if(value < 10){
+                        value++;
+                        $(this).closest('.product_data').find('.qty-input').val(value);
+                    }
+                });
+                $('.decrement-btn').click(function(e){
+                    e.preventDefault();
+
+                    var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+
+                    var value = parseInt(dec_value, 10);
+                    value = isNaN(value) ? 0 : value;
+                    if(value > 1){
+                        value--;
+                        $(this).closest('.product_data').find('.qty-input').val();
+                    }
+                });
+            });
+
+
+            </script>
+

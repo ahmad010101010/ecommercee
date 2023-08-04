@@ -1,46 +1,52 @@
-// to get current year
-function getYear() {
-    var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
-    document.querySelector("#displayYear").innerHTML = currentYear;
-}
 
-getYear();
+$(document).ready(function(){
+    $('.addToCart').click(function(e){
+        e.preventDefault();
+        var product_id =$(this).closest('.product_data').find('.prod_id').val();
+        var product_qty =$(this).closest('.product_data').find('.qty-input').val();
 
-
-// client section owl carousel
-$(".client_owl-carousel").owlCarousel({
-    loop: true,
-    margin: 0,
-    dots: false,
-    nav: true,
-    navText: [],
-    autoplay: true,
-    autoplayHoverPause: true,
-    navText: [
-        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-    ],
-    responsive: {
-        0: {
-            items: 1
-        },
-        768: {
-            items: 2
-        },
-        1000: {
-            items: 2
+        $.ajaxSetup({
+        headers : {
+            'X-CSRF-TOKEN' : $('.meta[name="csrf-token"]').attr('content')
         }
-    }
+    });
+        $.ajax({
+            metode:"POST",
+            url: "{{ route('addToCart') }}",
+            data:{
+                'product_id':product_id,
+                'product_qty':product_qty,
+            },
+            success:function(response){
+                alert(response.status);
+            }
+        })
+
+
+    });
 });
 
+$(document).ready(function(){
+    $('.increment-btn').click(function(e){
+        e.preventDefault();
 
+        var inc_value = $('.qty-input').val();
+        var value = parseInt(inc_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if(value < 10){
+            value++;
+            $('.qty-input').val(value);
+        }
+    });
+    $('.decrement-btn').click(function(e){
+        e.preventDefault();
 
-/** google_map js **/
-function myMap() {
-    var mapProp = {
-        center: new google.maps.LatLng(40.712775, -74.005973),
-        zoom: 18,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-}
+        var dec_value = $('.qty-input').val();
+        var value = parseInt(dec_value, 10);
+        value = isNaN(value) ? 0 : value;
+        if(value > 1){
+            value--;
+            $('.qty-input').val(value);
+        }
+    });
+});
